@@ -26,13 +26,15 @@ Authors: **Lukasz Koziarski** & **William Bech**
 ### Learning objectives:
 Design integration solution with messaging and SOAP web services. 📩 📬
 
+### Provide a description of the loan broker web service you created.
+
+The Loan Broker service we created is split up into many independent projects. Each project is able to run on its own and is completely independent from any other service within the Loan Broker Service. Each service is started up on its own and communicates with each other using RabbitMq. The project is developed using Java. The below diagram shows exactly the flow that our web service follows.
+
+
 ### Describe how testable your solution is.
 
 Due to high decoupling our system is rather easily testable. We were able to manually test each service on its own even though the service before or after it were not operational at the time. If we were to create a test suite for the system then that would be easy in the perspective of high decoupling and as each service only handles a small part of the overall system. The down side of testing out System would be that we created the Loan Broker in many different projects. This would make it so that you would not be able to have one central tet suite but would have to have test suites for each project. That would be a major downside for testing as you would trouble doing a full System Integration test. But if time allowed we would have merged all of our seperate Loan Broker components into one project and also made certain parts of the code more reusable. All in all each component of the project is highly testable on its own due to low coupling but the overall System testing would be hard to accomplish with our current structure.
 
-### Provide a description of the loan broker web service you created.
-
-The Loan Broker service we created is split up into many independent projects. Each project is able to run on its own and is completely independent from any other service within the Loan Broker Service. Each service is started up on its own and communicates with each other using RabbitMq. The project is developed using Java. The below diagram shows exactly the flow that our web service follows.
 
 ### Describe potential bottlenecks in your solution and possible enhancements to improve performance.
 
