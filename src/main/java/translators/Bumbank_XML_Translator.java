@@ -49,7 +49,7 @@ public class Bumbank_XML_Translator {
 
     private static String jsonToXml(String data) {
         JSONObject json = new JSONObject(data);
-        return "<loanRequest>" + XML.toString(json) + "</loanRequest>";
+        return "<LoanRequest>" + XML.toString(json) + "</LoanRequest>";
     }
 
     private static String request(String payload) throws Exception {

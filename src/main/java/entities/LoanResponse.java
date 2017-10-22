@@ -8,12 +8,17 @@ package entities;
 public class LoanResponse {
    long ssn;
    double interestRate;
-   String bank;
+   String bankName;
 
     public LoanResponse(long ssn, double interestRate, String bank) {
         this.ssn = ssn;
         this.interestRate = interestRate;
-        this.bank = bank;
+        this.bankName = bank;
+    }
+
+    public LoanResponse(long ssn, double interestRate) {
+        this.ssn = ssn;
+        this.interestRate = interestRate;
     }
 
     public long getSsn() {
@@ -33,10 +38,10 @@ public class LoanResponse {
     }
 
     public String getBank() {
-        return bank;
+        return bankName;
     }
 
     public void setBank(String bank) {
-        this.bank = bank;
+        this.bankName = bank;
     }
 }

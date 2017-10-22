@@ -33,4 +33,8 @@ public class Constants {
     
     // between all the banks and normalizer
     public static final String SENDING_BANKS = "LW: Banks-to-Normalizer";
+    public static final String LISTENING_NORMALIZER = "LW: Banks-to-Normalizer";
+
+    // aggregator exchange
+    public static final String AGGREGATOR_EXCHANGE = "LW: Aggregator-Exchange";
 }
