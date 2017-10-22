@@ -26,7 +26,7 @@ public class Constants {
 
     
     
-// Bank names
+    // Bank names
     public static final String SCHOOL_JSON = "cphbusiness.bankJSON";
     public static final String SCHOOL_XML = "cphbusiness.bankXML";
 

@@ -13,8 +13,8 @@ import java.io.IOException;
  */
 public class Gringotts_JSON_Translator {
     private static final String EXCHANGE = Constants.TRANSLATOR_EXCHANGE;
-    static final String SENDING_QUEUE = Constants.SENDING_OUR_JSON_TRANSLATOR;
-    static final String OUR_JSON = Constants.OUR_JSON;  
+    private static final String SENDING_QUEUE = Constants.SENDING_OUR_JSON_TRANSLATOR;
+    private static final String SEVERITY = Constants.OUR_JSON;  
 
     public static void main(String[] args) throws IOException {
         RabbitConnection rabbitConnection = new RabbitConnection();
@@ -23,7 +23,7 @@ public class Gringotts_JSON_Translator {
         
         listeningChannel.exchangeDeclare(EXCHANGE, "direct");
         String queueName = listeningChannel.queueDeclare().getQueue();
-        listeningChannel.queueBind(queueName, EXCHANGE, OUR_JSON);
+        listeningChannel.queueBind(queueName, EXCHANGE, SEVERITY);
         System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
         
         Consumer consumer = new DefaultConsumer(listeningChannel) {

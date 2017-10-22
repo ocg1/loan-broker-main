@@ -4,4 +4,6 @@
     <system systemId="http://138.68.85.24:8080/CreditScoreService/CreditScoreService?xsd=1" uri="wsdl/138.68.85.24_8080/CreditScoreService/CreditScoreService.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/RuleBase?wsdl" uri="wsdl/localhost_8080/RuleBase.wsdl"/>
     <system systemId="http://localhost:8080/RuleBase?xsd=1" uri="wsdl/localhost_8080/RuleBase.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/BumBankXML/requestLoan?wsdl" uri="wsdl/localhost_8080/BumBankXML/requestLoan.wsdl"/>
+    <system systemId="http://localhost:8080/BumBankXML/requestLoan?xsd=1" uri="wsdl/localhost_8080/BumBankXML/requestLoan.xsd_1.xsd"/>
 </catalog>
