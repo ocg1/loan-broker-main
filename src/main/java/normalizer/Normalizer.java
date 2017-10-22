@@ -12,17 +12,13 @@ import com.rabbitmq.client.Envelope;
 import config.Constants;
 import config.RabbitConnection;
 import entities.LoanResponse;
-import java.lang.reflect.Field;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import entities.LoanXMLResponse;
 
-import org.json.JSONObject;
-import org.json.XML;
+import java.io.StringReader;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
-/**
- *
- * @author williambech
- */
 public class Normalizer {
 
     private final static String LISTENING_QUEUE = Constants.LISTENING_NORMALIZER;
@@ -31,9 +27,9 @@ public class Normalizer {
     private final static String JSON_TYPE = "json";
     
     // Defines which bank sent the message
-    public static String getBankName(String type, LoanResponse resp) {
-        if (resp.getBank() != null) {
-            return resp.getBank();
+    public static String getBankName(String type, String bank) {
+        if (bank != null) {
+            return bank;
         }
         return "CphBusiness" + "." + type;
     }
@@ -48,6 +44,17 @@ public class Normalizer {
         return null;
     }
 
+    private static LoanXMLResponse unmarshal(String xml) throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(LoanXMLResponse.class);
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+        StringReader reader = new StringReader(xml);
+
+        LoanXMLResponse payload = (LoanXMLResponse) unmarshaller.unmarshal(reader);
+
+        return payload;
+    }
+    
     public static void main(String[] argv) throws Exception {
         RabbitConnection rabbitConnection = new RabbitConnection();
         Channel listeningChannel = rabbitConnection.makeConnection();
@@ -59,46 +66,46 @@ public class Normalizer {
         Consumer consumer = new DefaultConsumer(listeningChannel) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                String message = new String(body, "UTF-8");
-                System.out.println(" --- ");
-                System.out.println(" [x] Received: " + message);
-                
-                LoanResponse response;
-                String finalMessage = "";
-                String bank;
-                String type = getMessageType(message);
-                Gson gson = new Gson();
-
-                switch (type) {
-                    case XML_TYPE:
-                        JSONObject jsonMessage = XML.toJSONObject(message);
-                        String result = gson.toJson(jsonMessage);
-                        response = gson.fromJson(result, LoanResponse.class);
-                        
-                        bank = getBankName(type, response);
-                        response.setBank(bank);
-                        
-                        finalMessage = gson.toJson(response);
-                        break;
-                case JSON_TYPE: 
-                        response = gson.fromJson(message, LoanResponse.class);
-                        
-                        bank = getBankName(type, response);
-                        response.setBank(bank);
-                        
-                        finalMessage = gson.toJson(response);
-                        break;
-                default:
-                        System.out.println("We don't support that message type yet");
-                        break;
-                }
-
-                if (!finalMessage.isEmpty()) {
-                    sendingChannel.queueDeclare(SENDING_QUEUE, false, false, false, null);
-                    sendingChannel.basicPublish("", SENDING_QUEUE, null, finalMessage.getBytes());
-                    System.out.println(" [x] Sent: " + finalMessage);
-                } else {
-                    System.out.println("Nothing to send to the Aggregator");
+                try {
+                    String message = new String(body, "UTF-8");
+                    System.out.println(" [x] Received: " + message);
+                    
+                    String newMessage = "";
+                    String bank;
+                    String type = getMessageType(message);
+                    Gson gson = new Gson();
+                    
+                    switch (type) {
+                        case XML_TYPE:
+                            LoanXMLResponse xmlResponse = unmarshal(message);
+                            
+                            bank = getBankName(type, xmlResponse.getBank());
+                            xmlResponse.setBank(bank);
+                            
+                            newMessage = gson.toJson(xmlResponse);
+                            break;
+                        case JSON_TYPE:
+                            LoanResponse response = gson.fromJson(message, LoanResponse.class);
+                            
+                            bank = getBankName(type, response.getBank());
+                            response.setBank(bank);
+                            
+                            newMessage = gson.toJson(response);
+                            break;
+                        default:
+                            System.out.println("We don't support that message type yet");
+                            break;
+                    }
+                    
+                    if (!newMessage.isEmpty()) {
+                        sendingChannel.queueDeclare(SENDING_QUEUE, false, false, false, null);
+                        sendingChannel.basicPublish("", SENDING_QUEUE, null, newMessage.getBytes());
+                        System.out.println(" [x] Sent: " + newMessage);
+                    } else {
+                        System.out.println("Nothing to send to the Aggregator");
+                    }
+                } catch (JAXBException ex) {
+                    System.out.println(ex);
                 }
             }
         };
