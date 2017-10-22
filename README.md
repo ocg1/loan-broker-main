@@ -10,6 +10,21 @@ Authors: **Lukasz Koziarski** & **William Bech**
   - server name: **datdb.cphbusiness.dk**
   - port: **5672**
 
+## Loan Broker components
+* [RuleBase - repo](https://github.com/loan-broker-SI/rule-base)
+* [Our XML bank - repo](https://github.com/loan-broker-SI/bum-bank-xml)
+* [Our JSON bank - code](https://github.com/loan-broker-SI/loan-broker-main/blob/master/src/main/java/banks/GringottsBankJSON.java)
+* [Get Credit Score enricher - code](https://github.com/loan-broker-SI/loan-broker-main/blob/master/src/main/java/getCreditScore/GetCreditScore.java)
+* [Get Banks enricher - code](https://github.com/loan-broker-SI/loan-broker-main/blob/master/src/main/java/getBanks/GetBanks.java)
+* [Recipient List - code](https://github.com/loan-broker-SI/loan-broker-main/blob/master/src/main/java/recipList/RecipientList.java)
+* Translators
+  - [Our JSON - code](https://github.com/loan-broker-SI/loan-broker-main/blob/master/src/main/java/translators/Gringotts_JSON_Translator.java)
+  - [Our XML - code](https://github.com/loan-broker-SI/loan-broker-main/blob/master/src/main/java/translators/Bumbank_XML_Translator.java)
+  - [School JSON - code](https://github.com/loan-broker-SI/loan-broker-main/blob/master/src/main/java/translators/Cphbusiness_JSON_Translator.java)
+  - [School XML - code](https://github.com/loan-broker-SI/loan-broker-main/blob/master/src/main/java/translators/Cphbusiness_XML_Translator.java)
+* [Normalizer](https://github.com/loan-broker-SI/loan-broker-main/blob/master/src/main/java/normalizer/Normalizer.java)
+* Aggregator - @todo add link
+
 ## Recap notes from the Project description:
 ### Create:
 - 2 banks: 1 SOAP, 1 RabbitMQ
