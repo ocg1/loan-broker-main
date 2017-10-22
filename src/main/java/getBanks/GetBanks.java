@@ -64,7 +64,7 @@ public class GetBanks {
     }
 
     private static String[] getBanks(long ssn, int creditScore, double loanAmount, int loanDuration) {
-//        String[] banks = {"Gringotts", "BumBank", "cphbusiness.bankJSON", "cphbusiness.bankXML"};
+//        String[] banks = {"cphbusiness.bankXML","Gringotts", "BumBank", "cphbusiness.bankJSON"};
         String[] banks = {};
 
         String ssnToString = String.valueOf(ssn);
@@ -77,7 +77,6 @@ public class GetBanks {
         } catch (Exception ex) {
             System.out.println("ERROR: Getting banks, run the server.");
         }
-        
         return banks;
     }
 }

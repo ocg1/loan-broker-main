@@ -68,6 +68,7 @@ public class Normalizer {
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 try {
                     String message = new String(body, "UTF-8");
+                    System.out.println("---------------------------------------------------------------");
                     System.out.println(" [x] Received: " + message);
                     
                     String newMessage = "";

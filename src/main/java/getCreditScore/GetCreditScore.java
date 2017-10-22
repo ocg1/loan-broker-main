@@ -58,15 +58,16 @@ public class GetCreditScore {
     }
 
     private static long validateSSN(String ssn) {
-        String ssnAsString = String.valueOf(ssn);
-
         while (true) {
-            if (ssnAsString.length() == 10) {
-                break;
-//            } else if (ssn.length() == 10) {
-//                SSnAsString = SSnAsString.substring(0, 6) + '-' + SSnAsString.substring(6, SSnAsString.length());
-//                break; 
-            } else if (ssnAsString.matches("[0-9]+") && (ssnAsString.length() > 10 || ssnAsString.length() < 10)) {
+            if (ssn.length() == 10) {
+                if (Long.parseLong(ssn) < 2147483647) {
+                    break;
+                } else {
+                    System.out.println("SSN can't be bigger than number 2147483647");
+                    System.out.println("SSN:");
+                    return validateSSN(SCANNER.next());
+                }
+            } else if (ssn.matches("[0-9]+") && (ssn.length() > 10 || ssn.length() < 10)) {
                 System.out.println("Incorrect amount of digits. Try again.");
                 System.out.println("SSN:");
                 return validateSSN(SCANNER.next());
@@ -76,7 +77,7 @@ public class GetCreditScore {
                 return validateSSN(SCANNER.next());
             }
         }
-        return Long.parseLong(ssnAsString);
+        return Long.parseLong(ssn);
     }
 
     private static double validateLoanAmount(String loanAmount) {
