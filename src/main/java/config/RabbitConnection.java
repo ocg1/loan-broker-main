@@ -11,11 +11,11 @@ import java.io.IOException;
  */
 public class RabbitConnection {
 
-    private String host = "datdb.cphbusiness.dk";
-    private String userName = "student";
-    private String password = "cph";
-    private Integer port = 5672;
-    private boolean localhost = true;
+    private final String HOST = "datdb.cphbusiness.dk";
+    private final String USER_NAME = "student";
+    private final String PASSWORD = "cph";
+    private final Integer PORT = 5672;
+    private boolean localhost = false;
 
     private Channel channel;
     private ConnectionFactory factory;
@@ -28,14 +28,14 @@ public class RabbitConnection {
      * @return null if exception or if variable is not set. Else channel
      */
     public Channel makeConnection() {
-        if (host != null && userName != null && password != null) {
+        if (HOST != null && USER_NAME != null && PASSWORD != null) {
             try {
                 factory = new ConnectionFactory();
-                factory.setHost(host);
+                factory.setHost(HOST);
                 if (!localhost) {
-                    factory.setUsername(userName);
-                    factory.setPassword(password);
-                    factory.setPort(port);
+                    factory.setUsername(USER_NAME);
+                    factory.setPassword(PASSWORD);
+                    factory.setPort(PORT);
                 }
                 connection = factory.newConnection();
                 channel = connection.createChannel();
@@ -50,15 +50,15 @@ public class RabbitConnection {
     }
 
     public String getHost() {
-        return host;
+        return HOST;
     }
 
     public String getUserName() {
-        return userName;
+        return USER_NAME;
     }
 
     public String getPassword() {
-        return password;
+        return PASSWORD;
     }
 
     public Channel getChannel() {

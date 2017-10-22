@@ -64,17 +64,19 @@ public class GetBanks {
     }
 
     private static String[] getBanks(long ssn, int creditScore, double loanAmount, int loanDuration) {
-        String[] banks = {"Gringotts", "BumBank"};
-//        String ssnToString = String.valueOf(ssn);
-//        try {
-//            rulebase.RuleBase_Service service = new rulebase.RuleBase_Service();
-//            rulebase.RuleBase port = service.getRuleBasePort();
-//            java.lang.String result = port.getBanks(ssnToString, creditScore, loanAmount, loanDuration);
-//            // convert string to string array
-//            banks = result.split(",");
-//        } catch (Exception ex) {
-//            System.out.println("ERROR: Getting banks, run the server.");
-//        }
+//        String[] banks = {"Gringotts", "BumBank", "cphbusiness.bankJSON", "cphbusiness.bankXML"};
+        String[] banks = {};
+
+        String ssnToString = String.valueOf(ssn);
+        try {
+            rulebase.RuleBase_Service service = new rulebase.RuleBase_Service();
+            rulebase.RuleBase port = service.getRuleBasePort();
+            java.lang.String result = port.getBanks(ssnToString, creditScore, loanAmount, loanDuration);
+            // convert string to string array
+            banks = result.split(",");
+        } catch (Exception ex) {
+            System.out.println("ERROR: Getting banks, run the server.");
+        }
         
         return banks;
     }
