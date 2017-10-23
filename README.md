@@ -45,6 +45,8 @@ Design integration solution with messaging and SOAP web services. 📩 📬
 
 The Loan Broker service we created is split up into many independent projects. Each project is able to run on its own and is completely independent from any other service within the Loan Broker Service. Each service is started up on its own and communicates with each other using RabbitMq. The project is developed using Java. The below diagram shows exactly the flow that our web service follows.
 
+We also created a web site for the System but did not have time to hook it up with the Loan Broker system. This was due to challenges we did not expect.
+
 ![Alt text](images/diagram.png?raw=true "Diagram")
 
 Here is a sequence diagram that illustrates the data flow within the application.
