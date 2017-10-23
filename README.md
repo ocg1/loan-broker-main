@@ -68,7 +68,10 @@ Otherwise our project is highly decoupled and we have strong type checking as we
 
 ### Screen dumps of the process flow - running code
 ![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/1.png)
-Here we start with our request to the loan broker. User input his social security number, amount of money he wants to borrow and a period of time. This proccess is also responsible for getting user's credit score and passing all that data to the next component.
+Here we start with our request to the loan broker. User input his social security number, amount of money he wants to borrow and a period of time.
+
+![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/Screen%20Shot%202017-10-23%20at%2023.46.55.png)
+This proccess is also responsible for getting user's credit score by sending a request to the Credit Bureau (web service) and passing all that data to the next component.
 
 ![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/2.png)
 Here we can see, that the GetCreditScore content enricher put the data on the queue to consume for the next enricher which is the GetBanks component.
