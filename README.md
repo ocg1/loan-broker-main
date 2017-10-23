@@ -65,3 +65,38 @@ Our System contains a couple bottlenecks. The first one is that our loanbroker s
 The major bottleneck that makes our system not as performant as we would have liked it to be as well as not making it usable at a large scale, is that we do not have a way of returning the response to the original requestor. This is because we do not have a way of relating who sent the request and who needs to receive the response. The only way we have tried to handle this was by splitting up the reponses by SSN in the Aggregator and creating an object for each request message but then we are unable to find exactly which end user to respond to.
 
 Otherwise our project is highly decoupled and we have strong type checking as we have used a language that allows for it. We believe our project does have flaws that are caused by being new to messaging as well as being rusty with Java but overall it works well for a singular persons use. Changing the design of the flow could also help make it better. Such as having a gateway whcih takes the request and also returns it to the user. If a gateway to the Loan Broker system was created then we could also use RPC to manage which user gets which request back in a centralized manner. As with any program within a time limit we can say that it is usable but it could still be worked on, for a long long time to reach a more stable state.
+
+### Screen dumps of the process flow - running code
+![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/1.png)
+Here we start with our request to the loan broker. User input his social security number, amount of money he wants to borrow and a period of time. This proccess is also responsible for getting user's credit score and passing all that data to the next component.
+
+![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/2.png)
+Here we can see, that the GetCreditScore content enricher put the data on the queue to consume for the next enricher which is the GetBanks component.
+
+![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/3.png)
+This content enricher sends a request for the available banks to the SOAP service which is a Rule Base which returns banks available for that user, based on his credit score. In this case it's School provided JSON based bank and implemented by us - Bum Bank which is implemented also as a SOAP service.
+
+![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/4.png)
+This component puts the data on the queue from which a Recipients List will consume a message.
+
+![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/5.png)
+Here the RecipList component recives a message with a list of banks it should send a loan request to. Firt of all though it will send that message to the right translator, in order to translate a request so the banks can understand it.
+
+![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/6.png)
+On this picture we can see that a Cphbusiness JSON Translator succesfully receives a message and forwards it to the actual bank.
+
+![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/7.png)
+Here actually happens the same, except the message (which trough out our loan broker is passed as a json string) is parsed (translated) into xml string format and a request is made to the bank.
+
+![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/8.png)
+As we can see on this picture, both banks replied to our request and put their messages on the queue that we told them about.
+Message from the banks consists of an ssn, an interest rate and if message comes from one of the banks made by us - a bank name.
+
+![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/9.png)
+From that queue our Normalizer takes those messages and translates them back into json string. It also figures out from which bank a message came from.
+
+![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/10.png)
+Then the Normalizer puts parsed messages into another queue so they can be consumed by the Aggregator.
+
+![Alt text](https://github.com/loan-broker-SI/loan-broker-main/blob/master/images/screenshots/11.png)
+Last but not least, the Aggregator consumes the messages from it's queue and picks the best interest rate and prints out the result. 

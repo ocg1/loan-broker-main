@@ -16,7 +16,7 @@ import java.io.IOException;
 
 /**
  *
- * @author williambech & Luke
+ * @author williambech
  */
 public class RecipientList {
     static final String LISTENING_QUEUE = Constants.LISTENING_RECIP_LIST;
