@@ -19,6 +19,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+/**
+ *
+ * @author williambech
+ */
 public class Normalizer {
 
     private final static String LISTENING_QUEUE = Constants.LISTENING_NORMALIZER;

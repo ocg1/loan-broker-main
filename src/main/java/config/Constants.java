@@ -37,4 +37,5 @@ public class Constants {
 
     // aggregator exchange
     public static final String AGGREGATOR_EXCHANGE = "LW: Aggregator-Exchange";
+    public static final String LISTENING_AGGREGATOR = AGGREGATOR_EXCHANGE;
 }
