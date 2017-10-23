@@ -23,7 +23,8 @@ Authors: **Lukasz Koziarski** & **William Bech**
   - [School JSON - code](https://github.com/loan-broker-SI/loan-broker-main/blob/master/src/main/java/translators/Cphbusiness_JSON_Translator.java)
   - [School XML - code](https://github.com/loan-broker-SI/loan-broker-main/blob/master/src/main/java/translators/Cphbusiness_XML_Translator.java)
 * [Normalizer](https://github.com/loan-broker-SI/loan-broker-main/blob/master/src/main/java/normalizer/Normalizer.java)
-* Aggregator - @todo add link
+* [Aggregator](https://github.com/loan-broker-SI/aggregator)
+* [Server](https://github.com/loan-broker-SI/loan-broker-server)
 
 ## Recap notes from the Project description:
 ### Create:
