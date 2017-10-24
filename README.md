@@ -51,6 +51,10 @@ Here is a sequence diagram that illustrates the data flow within the application
 
 ![Alt text](images/seq.png?raw=true "Sequence Diagram")
 
+Class Diagram. The message is linked to almost every class in the diagram except for the aggregator and Normalizer and the Banks. The reason it is not illustrated is due to the tool we used to create the digram would not allow us to put more elements on the page without paying for an upgraded version.
+
+![Alt text](images/class_diagram.png?raw=true "Class Diagram")
+
 ### Describe how testable your solution is.
 
 Due to high decoupling our system is rather easily testable. We were able to manually test each service on its own even though the service before or after it were not operational at the time. If we were to create a test suite for the system then that would be easy in the perspective of high decoupling and as each service only handles a small part of the overall system. When we initially created our System the Loan Broker was split up into many different projects which we later noticed was a bad design patter. This was due to the very low testability and reusability of common components used throughout the Loan Broker system. After having merged all of the seperate projects into one we figures that if we were to create tests we would then be able to create one main test suite that could test all of the components within the system with ease. Having had past experience with testing seperate components we knew the complications we could face and are happy of having aggregated the projects into one. Even though the projects are aggregated into one they are all able to run fully independent of each other.
