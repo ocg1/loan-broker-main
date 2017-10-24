@@ -21,7 +21,7 @@ import javax.xml.bind.Unmarshaller;
 
 /**
  *
- * @author williambech
+ * @author williambech & Luke
  */
 public class Normalizer {
 
